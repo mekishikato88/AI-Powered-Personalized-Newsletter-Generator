@@ -4,11 +4,9 @@ from nltk.tokenize import sent_tokenize
 from nltk.corpus import stopwords
 import os
 
-# Ensure required NLTK packages are downloaded
 nltk.download('punkt')
 nltk.download('stopwords')
 
-# User-defined RSS feeds and categories
 USER_PERSONAS = {
     "Alex Parker": {
         "Sources": {
@@ -43,8 +41,8 @@ def generate_newsletter(user_name):
     if not user_data:
         return "User not found!"
     
-    newsletter_content = f"# 📢 {user_name}'s AI-Powered Newsletter\n\n"
-    newsletter_content += "## 🔥 Top News Highlights\n\n"
+    newsletter_content = f"# {user_name}'s AI-Powered Newsletter\n\n"
+    newsletter_content += "## Top News Highlights\n\n"
     
     for category, feeds in user_data["Sources"].items():
         newsletter_content += f"## {category} News\n\n"
@@ -54,13 +52,11 @@ def generate_newsletter(user_name):
             summary = summarize_text(article["summary"])
             newsletter_content += f"### [{article['title']}]({article['link']})\n{summary}\n\n"
 
-    # Save as Markdown file
     file_name = f"{user_name.replace(' ', '_').lower()}_newsletter.md"
     with open(file_name, "w", encoding="utf-8") as f:
         f.write(newsletter_content)
     
-    return f"✅ Newsletter for {user_name} generated! Check `{file_name}`."
+    return f"Newsletter for {user_name} generated! Check `{file_name}`."
 
-# Example usage
 if __name__ == "__main__":
     print(generate_newsletter("Alex Parker"))
